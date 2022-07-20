@@ -22,6 +22,14 @@ public class ResponseResult<T> {
     public static <T> ResponseResult success(T data){
         return new ResponseResult().setCode(CommonStatusEnum.SUCCESS.getCode()).setMessage(CommonStatusEnum.SUCCESS.getValue()).setData(data);
     }
+    /**
+     * 成功响应,无data
+     * @param <T>
+     * @return
+     */
+    public static <T> ResponseResult success(){
+        return new ResponseResult().setCode(CommonStatusEnum.SUCCESS.getCode()).setMessage(CommonStatusEnum.SUCCESS.getValue());
+    }
 
     /**
      * 失败：通用的失败

@@ -3,26 +3,60 @@ package com.msb.apipassenger.service;
 import com.msb.apipassenger.remote.ServiceVerificationcodeClient;
 import com.msb.internalcommon.dto.ResponseResult;
 import com.msb.internalcommon.response.NumberCodeResponse;
+import com.msb.internalcommon.response.TokenResponse;
 import net.sf.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.stereotype.Service;
+
+import java.util.concurrent.TimeUnit;
 
 @Service
 public class VerificationCodeService {
+    @Value("${spring.redis.host}")
+    private String redisServer;
     @Autowired
     private ServiceVerificationcodeClient serviceVerificationcodeClient;
-    public String generateCode(){
+    //a prefix for redis key
+    private String verificationCodePrefix="passenger-verification-code-";
+    @Autowired
+    private StringRedisTemplate stringRedisTemplate;//如果key是字符串，就用这个工具；如果不是，用RedisTemplate!!!
+    public ResponseResult generateCode(String passengerPhone){
+
         //调用验证码服务
         System.out.println("调用验证码服务中，获取验证码...");
         ResponseResult<NumberCodeResponse> numberCode = serviceVerificationcodeClient.getNumberCode(6);
         int numberCodeData=numberCode.getData().getNumberCode();
-        System.out.println("numberCodeData = " + numberCodeData);
-        //存入redis
-        System.out.println("存入redis...");
+        System.out.println("得到验证码： " + numberCodeData);
+        //存入redis,key为前缀加手机号，value为验证码
+        System.out.println("存入redis服务器: "+redisServer+"，有效时间2分钟...");
+        String key=verificationCodePrefix+passengerPhone;
+        String value=String.valueOf(numberCodeData);
+        stringRedisTemplate.opsForValue().set(key,value,2, TimeUnit.MINUTES);
+        //通过第三方短信服务，给passengerPhone发送numberCodeData验证码,比如阿里，腾讯，华信短信服务
+        System.out.println("发送验证码 "+numberCodeData+" 到客户手机："+passengerPhone);
         //返回值
-        /*JSONObject result=new JSONObject();
-        result.put("code","1");
-        result.put("message","success");*/
-        return numberCode.toString();
+        return ResponseResult.success();
+    }
+
+    /**
+     * 校验验证码
+     * @param passengerPhone
+     * @param verificationCode
+     * @return
+     */
+    public ResponseResult checkCode(String passengerPhone,String verificationCode){
+        //
+        System.out.println("根据手机号，去redis读取验证码");
+        //
+        System.out.println("校验验证码");
+        //
+        System.out.println("判断用户是否存在，并酌情处理");
+        //
+        System.out.println("颁发令牌");
+        TokenResponse tokenResponse=new TokenResponse();
+        tokenResponse.setToken("your token");
+        return ResponseResult.success(tokenResponse);
     }
 }

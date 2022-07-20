@@ -16,20 +16,8 @@ public class NumberCodeController {
         double randomDouble=(Math.random()*9+1)*Math.pow(10,size-1);
         int randomInt=(int)randomDouble;
 
-        /*JSONObject data=new JSONObject();
-        data.put("numberCode",randomInt);
-        JSONObject result=new JSONObject();
-        result.put("code",1);
-        result.put("message","success");
-        result.put("data",data);*/
-
         NumberCodeResponse response=new NumberCodeResponse();
         response.setNumberCode(randomInt);
         return ResponseResult.success(response);
-    }
-
-    public static void main(String[] args) {
-
-
     }
 }
