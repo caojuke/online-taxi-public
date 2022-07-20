@@ -31,7 +31,7 @@ public class VerificationCodeService {
         System.out.println("得到验证码： " + numberCodeData);
         //存入redis,key为前缀加手机号，value为验证码
         System.out.println("存入redis服务器: "+redisServer+"，有效时间2分钟...");
-        String key=verificationCodePrefix+passengerPhone;
+        String key=generateKeyByPhone(passengerPhone);
         String value=String.valueOf(numberCodeData);
         stringRedisTemplate.opsForValue().set(key,value,2, TimeUnit.MINUTES);
         //通过第三方短信服务，给passengerPhone发送numberCodeData验证码,比如阿里，腾讯，华信短信服务
@@ -49,6 +49,8 @@ public class VerificationCodeService {
     public ResponseResult checkCode(String passengerPhone,String verificationCode){
         //
         System.out.println("根据手机号，去redis读取验证码");
+        String key=generateKeyByPhone(passengerPhone);
+        String codeInRedis = stringRedisTemplate.opsForValue().get(key);
         //
         System.out.println("校验验证码");
         //
@@ -58,5 +60,9 @@ public class VerificationCodeService {
         TokenResponse tokenResponse=new TokenResponse();
         tokenResponse.setToken("your token");
         return ResponseResult.success(tokenResponse);
+    }
+
+    private String generateKeyByPhone(String passengerPhone){
+        return verificationCodePrefix+passengerPhone;
     }
 }
