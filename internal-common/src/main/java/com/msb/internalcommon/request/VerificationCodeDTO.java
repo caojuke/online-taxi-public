@@ -1,4 +1,4 @@
-package com.msb.apipassenger.request;
+package com.msb.internalcommon.request;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

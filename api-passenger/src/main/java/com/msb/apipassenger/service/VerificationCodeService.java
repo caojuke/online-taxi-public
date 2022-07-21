@@ -1,7 +1,10 @@
 package com.msb.apipassenger.service;
 
+import com.msb.apipassenger.remote.ServicePassengerUserClient;
 import com.msb.apipassenger.remote.ServiceVerificationcodeClient;
+import com.msb.internalcommon.constant.CommonStatusEnum;
 import com.msb.internalcommon.dto.ResponseResult;
+import com.msb.internalcommon.request.VerificationCodeDTO;
 import com.msb.internalcommon.response.NumberCodeResponse;
 import com.msb.internalcommon.response.TokenResponse;
 import net.sf.json.JSONObject;
@@ -18,6 +21,8 @@ public class VerificationCodeService {
     private String redisServer;
     @Autowired
     private ServiceVerificationcodeClient serviceVerificationcodeClient;
+    @Autowired
+    private ServicePassengerUserClient servicePassengerUserClient;
     //a prefix for redis key
     private String verificationCodePrefix="passenger-verification-code-";
     @Autowired
@@ -29,15 +34,18 @@ public class VerificationCodeService {
         ResponseResult<NumberCodeResponse> numberCode = serviceVerificationcodeClient.getNumberCode(6);
         int numberCodeData=numberCode.getData().getNumberCode();
         System.out.println("得到验证码： " + numberCodeData);
+
         //存入redis,key为前缀加手机号，value为验证码
         System.out.println("存入redis服务器: "+redisServer+"，有效时间2分钟...");
         String key=generateKeyByPhone(passengerPhone);
         String value=String.valueOf(numberCodeData);
         stringRedisTemplate.opsForValue().set(key,value,2, TimeUnit.MINUTES);
+
         //通过第三方短信服务，给passengerPhone发送numberCodeData验证码,比如阿里，腾讯，华信短信服务
         System.out.println("发送验证码 "+numberCodeData+" 到客户手机："+passengerPhone);
+
         //返回值
-        return ResponseResult.success();
+        return ResponseResult.success(numberCodeData);
     }
 
     /**
@@ -47,15 +55,22 @@ public class VerificationCodeService {
      * @return
      */
     public ResponseResult checkCode(String passengerPhone,String verificationCode){
-        //
+        //根据手机号，去redis读取验证码
         System.out.println("根据手机号，去redis读取验证码");
         String key=generateKeyByPhone(passengerPhone);
         String codeInRedis = stringRedisTemplate.opsForValue().get(key);
-        //
-        System.out.println("校验验证码");
-        //
-        System.out.println("判断用户是否存在，并酌情处理");
-        //
+        System.out.println("codeInRedis = " + codeInRedis);
+        System.out.println("code from client = "+verificationCode);
+        //校验
+        System.out.println(verificationCode.equals(codeInRedis)?"校验成功！":"校验失败！\n");
+        if(!verificationCode.trim().equals(codeInRedis.trim())){
+            return ResponseResult.fail(CommonStatusEnum.VERIFICATION_CODE_ERROR.getCode(),CommonStatusEnum.VERIFICATION_CODE_ERROR.getValue());
+        }
+
+        VerificationCodeDTO verificationCodeDTO=new VerificationCodeDTO();
+        verificationCodeDTO.setPassengerPhone(passengerPhone);
+        ResponseResult responseResult = servicePassengerUserClient.loginOrRegister(verificationCodeDTO);
+        //判断用户是否存在，并酌情处理
         System.out.println("颁发令牌");
         TokenResponse tokenResponse=new TokenResponse();
         tokenResponse.setToken("your token");

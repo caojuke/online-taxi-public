@@ -1,8 +1,9 @@
 package com.msb.apipassenger.controller;
 
-import com.msb.apipassenger.request.VerificationCodeDTO;
+
 import com.msb.apipassenger.service.VerificationCodeService;
 import com.msb.internalcommon.dto.ResponseResult;
+import com.msb.internalcommon.request.VerificationCodeDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
