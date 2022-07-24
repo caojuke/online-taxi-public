@@ -3,10 +3,12 @@ package com.msb.apipassenger.service;
 import com.msb.apipassenger.remote.ServicePassengerUserClient;
 import com.msb.apipassenger.remote.ServiceVerificationcodeClient;
 import com.msb.internalcommon.constant.CommonStatusEnum;
+import com.msb.internalcommon.constant.IdentityConstant;
 import com.msb.internalcommon.dto.ResponseResult;
 import com.msb.internalcommon.request.VerificationCodeDTO;
 import com.msb.internalcommon.response.NumberCodeResponse;
 import com.msb.internalcommon.response.TokenResponse;
+import com.msb.internalcommon.util.JwtUtil;
 import net.sf.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -72,8 +74,10 @@ public class VerificationCodeService {
         ResponseResult responseResult = servicePassengerUserClient.loginOrRegister(verificationCodeDTO);
         //判断用户是否存在，并酌情处理
         System.out.println("颁发令牌");
+        String token = JwtUtil.generateToken(passengerPhone, IdentityConstant.PASSENGER_IDENTITY);
         TokenResponse tokenResponse=new TokenResponse();
-        tokenResponse.setToken("your token");
+        tokenResponse.setToken(token);
+
         return ResponseResult.success(tokenResponse);
     }
 
