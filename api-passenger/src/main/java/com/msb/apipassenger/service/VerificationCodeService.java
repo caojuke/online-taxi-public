@@ -61,6 +61,8 @@ public class VerificationCodeService {
         System.out.println("根据手机号，去redis读取验证码");
         String key=generateKeyByPhone(passengerPhone);
         String codeInRedis = stringRedisTemplate.opsForValue().get(key);
+        if (null==codeInRedis)
+            return ResponseResult.fail(1001,"No record for this phonenumber exists in Redis DB.");
         System.out.println("codeInRedis = " + codeInRedis);
         System.out.println("code from client = "+verificationCode);
         //校验
@@ -75,13 +77,54 @@ public class VerificationCodeService {
         //判断用户是否存在，并酌情处理
         System.out.println("颁发令牌");
         String token = JwtUtil.generateToken(passengerPhone, IdentityConstant.PASSENGER_IDENTITY);
+        //做一个key，将token存入redis中
+        String tokenKey=generateTokenKey(passengerPhone,IdentityConstant.PASSENGER_IDENTITY);
+        stringRedisTemplate.opsForValue().set(tokenKey,token,30,TimeUnit.DAYS);
+        //响应结果封装
         TokenResponse tokenResponse=new TokenResponse();
         tokenResponse.setToken(token);
 
         return ResponseResult.success(tokenResponse);
     }
 
+    private String generateTokenKey(String passengerPhone, String passengerIdentity) {
+        return "token-"+passengerPhone+"-"+passengerIdentity;
+    }
+
     private String generateKeyByPhone(String passengerPhone){
         return verificationCodePrefix+passengerPhone;
     }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
