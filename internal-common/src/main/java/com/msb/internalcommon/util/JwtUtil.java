@@ -50,7 +50,7 @@ public class JwtUtil {
         Claim claimPhone = verify.getClaim(JWT_KEY_PHONE);//每一个键值对，就是一个claim
         Claim claimIdentity = verify.getClaim(JWT_KEY_IDENTITY);//每一个键值对，就是一个claim
 
-        return new TokenResult().setIdentity(claimIdentity.toString()).setPhone(claimPhone.toString());
+        return new TokenResult().setIdentity(claimIdentity.asString()).setPhone(claimPhone.asString());
     }
 
     public static void main(String[] args) {
