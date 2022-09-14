@@ -1,7 +1,7 @@
 package com.msb.servicepassengeruser.service;
 
 import com.msb.internalcommon.dto.ResponseResult;
-import com.msb.servicepassengeruser.dto.PassengerUser;
+import com.msb.internalcommon.dto.PassengerUser;
 import com.msb.servicepassengeruser.mapper.PassengerUserMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

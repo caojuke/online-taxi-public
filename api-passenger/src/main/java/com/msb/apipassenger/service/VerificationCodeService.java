@@ -4,6 +4,7 @@ import com.msb.apipassenger.remote.ServicePassengerUserClient;
 import com.msb.apipassenger.remote.ServiceVerificationcodeClient;
 import com.msb.internalcommon.constant.CommonStatusEnum;
 import com.msb.internalcommon.constant.IdentityConstant;
+import com.msb.internalcommon.constant.TokenTypeConstant;
 import com.msb.internalcommon.dto.ResponseResult;
 import com.msb.internalcommon.request.VerificationCodeDTO;
 import com.msb.internalcommon.response.NumberCodeResponse;
@@ -75,13 +76,18 @@ public class VerificationCodeService {
         ResponseResult responseResult = servicePassengerUserClient.loginOrRegister(verificationCodeDTO);
         //判断用户是否存在，并酌情处理
         System.out.println("颁发令牌");
-        String token = JwtUtil.generateToken(passengerPhone, IdentityConstant.PASSENGER_IDENTITY);
+        String acessToken = JwtUtil.generateToken(passengerPhone, IdentityConstant.PASSENGER_IDENTITY, TokenTypeConstant.ACCESS);
+        String refreshToken = JwtUtil.generateToken(passengerPhone, IdentityConstant.PASSENGER_IDENTITY, TokenTypeConstant.REFRESH);
+
         //做一个key，将token存入redis中
-        String tokenKey=RedisPrefixUtil.generateTokenKey(passengerPhone,IdentityConstant.PASSENGER_IDENTITY);
-        stringRedisTemplate.opsForValue().set(tokenKey,token,30,TimeUnit.DAYS);
+        String accessTokenKey=RedisPrefixUtil.generateTokenKey(passengerPhone,IdentityConstant.PASSENGER_IDENTITY,TokenTypeConstant.ACCESS);
+        String refreshTokenKey=RedisPrefixUtil.generateTokenKey(passengerPhone,IdentityConstant.PASSENGER_IDENTITY,TokenTypeConstant.REFRESH);
+        stringRedisTemplate.opsForValue().set(accessTokenKey,acessToken,15,TimeUnit.SECONDS);
+        stringRedisTemplate.opsForValue().set(refreshTokenKey,refreshToken,2,TimeUnit.MINUTES);
         //响应结果封装
         TokenResponse tokenResponse=new TokenResponse();
-        tokenResponse.setToken(token);
+        tokenResponse.setAccessToken(acessToken);
+        tokenResponse.setRefreshToken(refreshToken);
 
         return ResponseResult.success(tokenResponse);
     }
