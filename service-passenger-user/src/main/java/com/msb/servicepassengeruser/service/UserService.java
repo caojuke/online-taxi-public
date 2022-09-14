@@ -1,5 +1,6 @@
 package com.msb.servicepassengeruser.service;
 
+import com.msb.internalcommon.constant.CommonStatusEnum;
 import com.msb.internalcommon.dto.ResponseResult;
 import com.msb.internalcommon.dto.PassengerUser;
 import com.msb.servicepassengeruser.mapper.PassengerUserMapper;
@@ -43,6 +44,25 @@ public class UserService {
         }
         //返回值
         return ResponseResult.success("--");
+    }
+
+    /**
+     * 根据用户手机号，返回用户
+     * @param phone
+     * @return
+     */
+    public ResponseResult getUserByPhone(String phone) {
+        //在数据库按手机号查询用户
+        Map<String,Object> map=new HashMap<>();
+        map.put("passenger_phone",phone);
+        List<PassengerUser> passengerUsers=passengerUserMapper.selectByMap(map);
+        if(passengerUsers.size()==0){
+            return ResponseResult.fail(CommonStatusEnum.USER_NOT_EXIST);
+        }
+        else{
+            PassengerUser passengerUser=passengerUsers.get(0);
+            return ResponseResult.success(passengerUser);
+        }
     }
 }
 
