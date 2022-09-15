@@ -70,7 +70,7 @@ public class VerificationCodeService {
         if(!verificationCode.trim().equals(codeInRedis.trim())){
             return ResponseResult.fail(CommonStatusEnum.VERIFICATION_CODE_ERROR.getCode(),CommonStatusEnum.VERIFICATION_CODE_ERROR.getValue());
         }
-
+        //验证码正确的话，用servicePassengerService服务，将这个用户存入mysql数据库
         VerificationCodeDTO verificationCodeDTO=new VerificationCodeDTO();
         verificationCodeDTO.setPassengerPhone(passengerPhone);
         ResponseResult responseResult = servicePassengerUserClient.loginOrRegister(verificationCodeDTO);
