@@ -56,6 +56,7 @@ public class UserService {
         Map<String,Object> map=new HashMap<>();
         map.put("passenger_phone",phone);
         List<PassengerUser> passengerUsers=passengerUserMapper.selectByMap(map);
+
         if(passengerUsers.size()==0){
             return ResponseResult.fail(CommonStatusEnum.USER_NOT_EXIST);
         }
