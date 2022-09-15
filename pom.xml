@@ -15,6 +15,7 @@
         <module>service-verificationcode</module>
         <module>service-passenger-user</module>
         <module>service-price</module>
+        <module>service-map</module>
     </modules>
 
     <parent>
@@ -41,8 +42,7 @@
         <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
-            <version>1.18.14</version>
-            <scope>provided</scope>
+            <version>1.18.22</version>
         </dependency>
 
         <!--common共用包依赖-->

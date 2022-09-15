@@ -1,11 +1,9 @@
 package com.msb.internalcommon.constant;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
+
 import lombok.Getter;
-import lombok.Setter;
 
-
+@Getter
 public enum CommonStatusEnum {
     SUCCESS(1,"success"),
     FAIL(0,"fail"),
