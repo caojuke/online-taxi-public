@@ -7,3 +7,14 @@ spring:
     nacos:
       discovery:
         server-addr: 127.0.0.1:8848
+  datasource:
+    password: A#nd007.
+    username: root
+    url: jdbc:mysql://127.0.0.1:3306/service_price?characterEncoding=utf-8&serverTimezone=GMT%2B8
+    driver-class-name: com.mysql.cj.jdbc.Driver
+mybatis:
+  mapper-locations: classpath:mybatis/*xml #resources/mybatis/PriceRuleMapper.xml
+  type-aliases-package: com.msb.internalcommon.dto #这个是引用项目中的实体类
+  configuration:
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl #指定了mybatis的日志工具 ，开启了日志功能。
+    map-underscore-to-camel-case: true #city_code是数据库中字段的名称，转为实体类成员名称cityCode，驼峰命名。如果不开启这个转换，否则实体类中也要按照数据库字段命名。

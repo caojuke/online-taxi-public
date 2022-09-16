@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.msb.serviceprice.mapper.PriceRuleMapper">
+
+    <select id="selectAll" resultType="com.msb.internalcommon.dto.PriceRule">
+        select * from price_rule
+    </select>
+<!--    用id查询-->
+    <select id="selectById" resultType="com.msb.internalcommon.dto.PriceRule" parameterType="int">
+        select * from price_rule where id=#{id}
+    </select>
+<!--    用map查询-->
+    <select id="selectByAny" resultType="com.msb.internalcommon.dto.PriceRule">
+        select * from price_rule
+        <where>
+            <if test="id != null">
+                and id= #{id}
+            </if>
+            <if test="cityCode != null and cityCode != ''">
+                and city_code= #{cityCode}
+            </if>
+        </where>
+    </select>
+
+    <delete id="removeById">
+        delete from price_rule id deptno=#{param1}
+    </delete>
+
+    <insert id="addPriceRule" parameterType="com.msb.internalcommon.dto.PriceRule">
+        insert into price_rule values (default ,#{cityCode},#{vehicleType},#{startFare},#{startMile},#{unitPricePerMile},#{unitPricePerMinute})
+    </insert>
+</mapper>
