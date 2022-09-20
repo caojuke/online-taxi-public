@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.msb.servicedriveruser.mapper.DriverMapper">
+
+    <select id="selectAll" resultType="com.msb.internalcommon.dto.DicDistrict">
+        select * from driver_user
+    </select>
+    <!--    用id查询-->
+    <select id="selectByCode" resultType="com.msb.internalcommon.dto.DicDistrict">
+        select * from driver_user where address_code=#{addressCode}
+    </select>
+    <!--    用map查询-->
+    <select id="selectByAny" resultType="com.msb.internalcommon.dto.DicDistrict">
+        select * from driver_user
+        <where>
+            <if test="addressCode != null and addressCode !=''">
+                and address_code= #{addressCode}
+            </if>
+            <if test="addressName != null and addressName != ''">
+                and address_name= #{addressName}
+            </if>
+            <if test="parentAddressCode != null and parentAddressCode !=''">
+                and parent_address_code= #{parenetAddressCode}
+            </if>
+            <if test="addressLevel != null">
+                and address_level= #{addressLevel}
+            </if>
+        </where>
+    </select>
+
+    <delete id="removeByCode">
+        delete from driver_user where address_code=#{addressCode}
+    </delete>
+
+    <insert id="addDistrict" parameterType="com.msb.internalcommon.dto.DicDistrict">
+        insert into driver_user values (default,#{addressCode},#{addressName},#{parentAddressCode},#{addressLevel})
+    </insert>
+</mapper>
