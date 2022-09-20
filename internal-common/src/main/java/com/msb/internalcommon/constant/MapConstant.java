@@ -7,4 +7,5 @@ public class MapConstant {
     public static final String DISTANCE="distance";
     public static final String DURATION="duration";
     public static final String ROUTE = "route";
+    public static final String DISTRICTS = "districts";
 }
