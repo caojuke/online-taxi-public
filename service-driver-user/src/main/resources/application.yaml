@@ -5,7 +5,7 @@ spring:
     name: service-driver-user
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://127.0.0.1:3306/service_price?characterEncoding=utf-8&serverTimezone=GMT%2B8
+    url: jdbc:mysql://127.0.0.1:3306/service_driver_user?characterEncoding=utf-8&serverTimezone=GMT%2B8
     username: root
     password: A#nd007.
   cloud:

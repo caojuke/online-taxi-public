@@ -10,7 +10,7 @@ spring:
   datasource:
     password: A#nd007.
     username: root
-    url: jdbc:mysql://127.0.0.1:3306/service_driver_user?characterEncoding=utf-8&serverTimezone=GMT%2B8
+    url: jdbc:mysql://127.0.0.1:3306/service_map?characterEncoding=utf-8&serverTimezone=GMT%2B8
     driver-class-name: com.mysql.cj.jdbc.Driver
 mybatis:
   mapper-locations: classpath:mybatis/*xml #resources/mybatis/PriceRuleMapper.xml
