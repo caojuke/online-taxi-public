@@ -7,10 +7,7 @@ import com.msb.servicedriveruser.mapper.DriverUserMapper;
 import com.msb.servicedriveruser.service.DriverUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -24,5 +21,10 @@ public class UserController {
     public ResponseResult addDriverUser(@RequestBody DriverUser driverUser){
         System.out.println(driverUser);
         return driverUserService.addDriverUser(driverUser);
+    }
+    @PutMapping("/user")
+    public ResponseResult updateDriverUser(@RequestBody DriverUser driverUser){
+        System.out.println(driverUser);
+        return driverUserService.updateDriverUserById(driverUser);
     }
 }

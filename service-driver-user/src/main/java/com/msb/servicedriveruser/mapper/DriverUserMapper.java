@@ -9,4 +9,5 @@ import java.util.List;
 public interface DriverUserMapper {
     List<DriverUser> selectAll();
     int addDriverUser(DriverUser driverUser);
+    int updateDriverUserById(DriverUser driverUser);
 }

@@ -10,9 +10,16 @@ import org.springframework.web.bind.annotation.RequestBody;
 public class DriverUserService {
     @Autowired
     private ServiceDriverUserClient serviceDriverUserClient;
+
     public ResponseResult addDriverUser(@RequestBody DriverUser driverUser){
 
         ResponseResult responseResult = serviceDriverUserClient.addDriverUser(driverUser);
+
+        return responseResult;
+    }
+    public ResponseResult updateDriverUser(@RequestBody DriverUser driverUser){
+
+        ResponseResult responseResult = serviceDriverUserClient.updateDriverUser(driverUser);
 
         return responseResult;
     }

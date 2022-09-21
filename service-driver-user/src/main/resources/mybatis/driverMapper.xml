@@ -3,6 +3,35 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.msb.servicedriveruser.mapper.DriverUserMapper">
+    <update id="updateDriverUserById" parameterType="com.msb.internalcommon.dto.DriverUser">
+        update driver_user set
+            address=#{address},
+            driver_name=#{driverName},
+            driver_phone=#{driverPhone},
+            driver_gender=#{driverGender},
+            driver_birthday=#{driverBirthday},
+            driver_nation=#{driverNation},
+            driver_contact_address=#{driverContactAddress},
+            driver_license_id=#{driverLicenseId},
+            get_license_date=#{getLicenseDate},
+            driver_license_on=#{driverLicenseOn},
+            driver_license_off=#{driverLicenseOff},
+            taxi_driver=#{taxiDriver},
+            certificate_no=#{certificateNo},
+            network_car_issue_organization=#{networkCarIssueOrganization},
+            get_network_car_proof_date=#{getNetworkCarProofDate},
+            network_car_proof_on=#{networkCarProofOn},
+            network_car_proof_off=#{networkCarProofOff},
+            register_date=#{registerDate},
+            commercial_type=#{commercialType},
+            contract_company=#{contractCompany},
+            contract_on=#{contractOn},
+            contract_off=#{contractOff},
+            state=#{state},
+            gmt_create=#{gmtCreate},
+            gmt_modified=#{gmtModified}
+             where id=#{id}
+    </update>
 
     <select id="selectAll" resultType="com.msb.internalcommon.dto.DriverUser">
         select * from driver_user

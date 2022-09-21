@@ -6,6 +6,7 @@ import lombok.NoArgsConstructor;
 
 import java.io.Serializable;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.Date;
 
 @Data
@@ -36,6 +37,6 @@ public class DriverUser implements Serializable {
     private LocalDate contractOn;
     private LocalDate contractOff;
     private Integer state;
-    private Date gmtCreate;
-    private Date gmtModified;
+    private LocalDateTime gmtCreate;
+    private LocalDateTime gmtModified;
 }
