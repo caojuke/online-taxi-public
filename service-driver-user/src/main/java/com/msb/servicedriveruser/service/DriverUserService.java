@@ -23,8 +23,9 @@ public class DriverUserService {
 
     public ResponseResult addDriverUser(DriverUser driverUser){
         LocalDateTime now=LocalDateTime.now();
-
         driverUser.setGmtModified(now);
+        driverUser.setGmtCreate(now);
+
         int rowAffected=0;
         try {
             rowAffected = driverUserMapper.addDriverUser(driverUser);
