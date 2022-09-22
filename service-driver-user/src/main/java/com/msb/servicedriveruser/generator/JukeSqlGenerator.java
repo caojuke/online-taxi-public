@@ -6,15 +6,14 @@ import java.util.regex.Pattern;
 
 public class JukeSqlGenerator {
     private static Connection conn;
-    private static PreparedStatement statement;
 
-    private static String username="root";
-    private static String password="A#nd007.";
-    private static String url="jdbc:mysql://127.0.0.1:3306/service_driver_user?characterEncoding=utf-8&serverTimezone=GMT%2B8";
+    private static final String username="root";
+    private static final String password="A#nd007.";
+    private static final String url="jdbc:mysql://127.0.0.1:3306/service_driver_user?characterEncoding=utf-8&serverTimezone=GMT%2B8";
 
     public static void main(String[] args) {
         ConnectMySqlByJDBC();
-        createEntity("driver_car_binding_relationship");
+        createEntity("car");
     }
     //连接数据库MySQL的方法
     public static void ConnectMySqlByJDBC(){
@@ -35,8 +34,8 @@ public class JukeSqlGenerator {
         String sql="show full fields from "+tableName;
         ResultSet res=null;
         try {
-            statement=conn.prepareStatement(sql);//提前传入sql语句
-            res=statement.executeQuery();//此时不再需要传sql语句了
+            PreparedStatement statement = conn.prepareStatement(sql);//提前传入sql语句
+            res= statement.executeQuery();//此时不再需要传sql语句了
             while (res.next()) {
                 String field = res.getString("Field");
                 String type=res.getString("Type");
@@ -45,12 +44,14 @@ public class JukeSqlGenerator {
                 String jType=sqlTypeToJavaType(type);
                 String example=exampleValue(type);
                 //打印dao
-                System.out.println("// "+type+", "+comment);
-                System.out.println("private \t"+jType+"\t\t"+jField+";");
+                //System.out.println("// "+type+", "+comment);
+                //System.out.println("private \t"+jType+"\t\t"+jField+";");
                 //打印json格式
                 //System.out.println("\""+jField+"\":"+example);
                 //打印insert语句在mapper需要的格式
-                //System.out.println("#{"+ jField+"},");
+                //System.out.print("#{"+ jField+"},");
+                //打印update语句在mapper中需要的格式
+                System.out.println(field+"="+"#{"+ jField+"},");
 
             }
         }

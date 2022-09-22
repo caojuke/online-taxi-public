@@ -1,5 +1,6 @@
 package com.msb.servicedriveruser.service;
 
+import com.msb.internalcommon.constant.CommonStatusEnum;
 import com.msb.internalcommon.dto.Car;
 import com.msb.internalcommon.dto.ResponseResult;
 import com.msb.servicedriveruser.mapper.CarMapper;
@@ -25,9 +26,9 @@ public class CarService {
         }
         catch (Exception exception){
             log.info(exception.getMessage());
-            return ResponseResult.fail(1500,"fail to car to database:Car.",exception.getMessage());
+            return ResponseResult.fail(CommonStatusEnum.INSERT_DB_FAILED.getCode(),CommonStatusEnum.INSERT_DB_FAILED.getValue(),exception.getMessage());
         }
 
-        return ResponseResult.success("增加数据条数： "+rowAffected);
+        return ResponseResult.success("增加数据条数- "+rowAffected);
     }
 }

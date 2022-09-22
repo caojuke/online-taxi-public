@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.msb.servicedriveruser.mapper.DriverCarBindingMapper">
+    <update id="updateById" parameterType="com.msb.internalcommon.dto.DriverCarBindingRelationship">
+        update driver_car_binding_relationship set
+                   id=#{id},
+                   driver_id=#{driverId},
+                   car_id=#{carId},
+                   bind_state=#{bindState},
+                   binding_time=#{bindingTime},
+                   unbinding_time=#{unbindingTime}
+             where id=#{id}
+    </update>
+
+    <select id="selectAll" resultType="com.msb.internalcommon.dto.DriverCarBindingRelationship">
+        select * from driver_car_binding_relationship
+    </select>
+    <!--    用id查询-->
+    <select id="selectById" resultType="com.msb.internalcommon.dto.DriverCarBindingRelationship">
+        select * from driver_car_binding_relationship where id=#{id}
+    </select>
+    <select id="selectByAny" resultType="com.msb.internalcommon.dto.DriverCarBindingRelationship" parameterType="com.msb.internalcommon.dto.DriverCarBindingRelationship">
+        select * from driver_car_binding_relationship
+        <where>
+            <if test="id != null">
+                and id=#{id}
+            </if>
+            <if test="driverId != null">
+                and driver_id=#{driverId}
+            </if>
+            <if test="carId != null">
+                and car_id=#{carId}
+            </if>
+            <if test="bindState != null">
+                and bind_state=#{bindState}
+            </if>
+        </where>
+    </select>
+    <delete id="removeById">
+        delete from driver_car_binding_relationship where id=#{id}
+    </delete>
+
+    <insert id="insert" parameterType="com.msb.internalcommon.dto.DriverCarBindingRelationship">
+        insert into driver_car_binding_relationship values (default ,#{driverId},#{carId},#{bindState},#{bindingTime},#{unbindingTime})
+    </insert>
+</mapper>

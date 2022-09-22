@@ -26,7 +26,18 @@ public enum CommonStatusEnum {
     /**
      * 地图接口请求提示1400-1499
      */
-    MAP_DISTRICT_ERROR(1400,"请求地图错误");
+    MAP_DISTRICT_ERROR(1400,"请求地图错误"),
+    /**
+     * 数据库操作提示1500-1599
+     */
+    INSERT_DB_FAILED(1500,"insert失败"),
+    SELECT_DB_FAILED(1501,"select失败"),
+    UPDATE_DB_FAILED(1501,"update失败"),
+    DELETE_DB_FAILED(1501,"delete失败"),
+    /**
+     * 地图接口请求提示1600-1699
+     */
+    DRIVER_CAR_BIND_NOT_EXIST(1600,"绑定关系不存在");
     @Getter
     private int code;
     @Getter

@@ -1,5 +1,6 @@
 package com.msb.servicedriveruser.service;
 
+import com.msb.internalcommon.constant.CommonStatusEnum;
 import com.msb.internalcommon.dto.DriverUser;
 import com.msb.internalcommon.dto.ResponseResult;
 import com.msb.servicedriveruser.mapper.DriverUserMapper;
@@ -7,10 +8,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.bind.annotation.RequestBody;
 
-import java.sql.Date;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 
@@ -32,10 +30,10 @@ public class DriverUserService {
         }
         catch (Exception exception){
             log.info(exception.getMessage());
-            return ResponseResult.fail(1500,"fail to add user",exception.getMessage());
+            return ResponseResult.fail(CommonStatusEnum.INSERT_DB_FAILED.getCode(),CommonStatusEnum.INSERT_DB_FAILED.getValue(),exception.getMessage());
         }
 
-        return ResponseResult.success("增加数据条数： "+rowAffected);
+        return ResponseResult.success("增加数据条数- "+rowAffected);
     }
     public ResponseResult updateDriverUserById(DriverUser driverUser){
         LocalDateTime now=LocalDateTime.now();
@@ -46,9 +44,9 @@ public class DriverUserService {
         }
         catch (Exception exception){
             log.info(exception.getMessage());
-            return ResponseResult.fail(1500,"fail to update user",exception.getMessage());
+            return ResponseResult.fail(CommonStatusEnum.INSERT_DB_FAILED.getCode(),CommonStatusEnum.INSERT_DB_FAILED.getValue(),exception.getMessage());
         }
-        return ResponseResult.success("更新数据条数： "+rowAffected);
+        return ResponseResult.success("更新数据条数- "+rowAffected);
 
     }
 }

@@ -5,31 +5,39 @@
 <mapper namespace="com.msb.servicedriveruser.mapper.CarMapper">
     <update id="updateCarById" parameterType="com.msb.internalcommon.dto.Car">
         update Car set
-            address=#{address},
-            driver_name=#{driverName},
-            driver_phone=#{driverPhone},
-            driver_gender=#{driverGender},
-            driver_birthday=#{driverBirthday},
-            driver_nation=#{driverNation},
-            driver_contact_address=#{driverContactAddress},
-            driver_license_id=#{driverLicenseId},
-            get_license_date=#{getLicenseDate},
-            driver_license_on=#{driverLicenseOn},
-            driver_license_off=#{driverLicenseOff},
-            taxi_driver=#{taxiDriver},
-            certificate_no=#{certificateNo},
-            network_car_issue_organization=#{networkCarIssueOrganization},
-            get_network_car_proof_date=#{getNetworkCarProofDate},
-            network_car_proof_on=#{networkCarProofOn},
-            network_car_proof_off=#{networkCarProofOff},
-            register_date=#{registerDate},
-            commercial_type=#{commercialType},
-            contract_company=#{contractCompany},
-            contract_on=#{contractOn},
-            contract_off=#{contractOff},
-            state=#{state},
-            gmt_create=#{gmtCreate},
-            gmt_modified=#{gmtModified}
+                       id=#{id},
+                       address=#{address},
+                       vehicle_no=#{vehicleNo},
+                       plate_color=#{plateColor},
+                       seats=#{seats},
+                       brand=#{brand},
+                       model=#{model},
+                       vehicle_type=#{vehicleType},
+                       owner_name=#{ownerName},
+                       vehicle_color=#{vehicleColor},
+                       engine_id=#{engineId},
+                       vin=#{vin},
+                       certify_date_a=#{certifyDateA},
+                       fuel_type=#{fuelType},
+                       engine_displace=#{engineDisplace},
+                       trans_agency=#{transAgency},
+                       trans_area=#{transArea},
+                       trans_date_start=#{transDateStart},
+                       trans_date_end=#{transDateEnd},
+                       certify_date_b=#{certifyDateB},
+                       fix_state=#{fixState},
+                       next_fix_date=#{nextFixDate},
+                       check_state=#{checkState},
+                       fee_print_id=#{feePrintId},
+                       gps_brand=#{gpsBrand},
+                       gps_model=#{gpsModel},
+                       gps_install_date=#{gpsInstallDate},
+                       register_date=#{registerDate},
+                       commercial_type=#{commercialType},
+                       fare_type=#{fareType},
+                       state=#{state},
+                       gmt_create=#{gmtCreate},
+                       gmt_modified=#{gmtModified}
              where id=#{id}
     </update>
 
@@ -37,8 +45,8 @@
         select * from Car
     </select>
     <!--    用id查询-->
-    <select id="selectByCode" resultType="com.msb.internalcommon.dto.Car">
-        select * from Car where address_code=#{addressCode}
+    <select id="selectById" resultType="com.msb.internalcommon.dto.Car">
+        select * from Car where id=#{id}
     </select>
     <!--    用map查询-->
     <select id="selectByAny" resultType="com.msb.internalcommon.dto.Car">
@@ -59,8 +67,8 @@
         </where>
     </select>
 
-    <delete id="removeByCode">
-        delete from Car where address_code=#{addressCode}
+    <delete id="removeById">
+        delete from Car where id=#{id}
     </delete>
 
     <insert id="addCar" parameterType="com.msb.internalcommon.dto.Car">
