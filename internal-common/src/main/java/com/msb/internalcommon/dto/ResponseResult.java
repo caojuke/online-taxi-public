@@ -38,7 +38,7 @@ public class ResponseResult<T> {
      * @return
      */
     public static <T> ResponseResult fail(T data){
-        return new ResponseResult().setData(data);
+        return new ResponseResult().setData(data).setCode(CommonStatusEnum.FAIL.getCode()).setMessage(CommonStatusEnum.FAIL.getValue());
     }
 
     /**

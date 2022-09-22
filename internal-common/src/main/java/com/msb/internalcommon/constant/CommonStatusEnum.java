@@ -32,12 +32,13 @@ public enum CommonStatusEnum {
      */
     INSERT_DB_FAILED(1500,"insert失败"),
     SELECT_DB_FAILED(1501,"select失败"),
-    UPDATE_DB_FAILED(1501,"update失败"),
-    DELETE_DB_FAILED(1501,"delete失败"),
+    UPDATE_DB_FAILED(1502,"update失败"),
+    DELETE_DB_FAILED(1503,"delete失败"),
     /**
      * 地图接口请求提示1600-1699
      */
-    DRIVER_CAR_BIND_NOT_EXIST(1600,"绑定关系不存在");
+    DRIVER_CAR_BIND_NOT_EXIST(1600,"绑定关系不存在"),
+    DRIVER__NOT_EXIST(1601,"司机不存在");
     @Getter
     private int code;
     @Getter

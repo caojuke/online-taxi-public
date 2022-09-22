@@ -10,4 +10,5 @@ public interface DriverUserMapper {
     List<DriverUser> selectAll();
     int addDriverUser(DriverUser driverUser);
     int updateDriverUserById(DriverUser driverUser);
+    List<DriverUser> selectByPhone(String driverPhone);
 }

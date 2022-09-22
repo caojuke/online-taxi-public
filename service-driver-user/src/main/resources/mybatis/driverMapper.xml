@@ -58,6 +58,9 @@
             </if>
         </where>
     </select>
+    <select id="selectByPhone" resultType="com.msb.internalcommon.dto.DriverUser">
+        select * from driver_user where driver_phone=#{driverPhone}
+    </select>
 
     <delete id="removeByCode">
         delete from driver_user where address_code=#{addressCode}

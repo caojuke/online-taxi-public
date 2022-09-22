@@ -10,6 +10,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 
 @Service
@@ -47,6 +49,21 @@ public class DriverUserService {
             return ResponseResult.fail(CommonStatusEnum.INSERT_DB_FAILED.getCode(),CommonStatusEnum.INSERT_DB_FAILED.getValue(),exception.getMessage());
         }
         return ResponseResult.success("更新数据条数- "+rowAffected);
+    }
+    public ResponseResult<DriverUser> getDriverUserByPhone(String drivePhone){
+        LocalDateTime now=LocalDateTime.now();
 
+        List<DriverUser> result=new ArrayList<>();
+        try {
+            result = driverUserMapper.selectByPhone(drivePhone);
+            if(result.isEmpty()){
+                return ResponseResult.fail(CommonStatusEnum.DRIVER__NOT_EXIST.getCode(),CommonStatusEnum.DRIVER__NOT_EXIST.getValue());
+            }
+        }
+        catch (Exception exception){
+            log.info(exception.getMessage());
+            return ResponseResult.fail(CommonStatusEnum.SELECT_DB_FAILED.getCode(),CommonStatusEnum.SELECT_DB_FAILED.getValue(),exception.getMessage());
+        }
+        return ResponseResult.success(result.get(0));
     }
 }
