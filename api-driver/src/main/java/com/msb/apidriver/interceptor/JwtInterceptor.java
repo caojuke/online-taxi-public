@@ -42,7 +42,7 @@ public class JwtInterceptor implements HandlerInterceptor {
         String phone = tokenResult.getPhone();
         String tokenKey = RedisPrefixUtil.generateTokenKey(phone, identity, TokenTypeConstant.ACCESS);
         String tokenRedis = stringRedisTemplate.opsForValue().get(tokenKey);
-        if (!StringUtils.isBlank(tokenRedis) || token.trim().equals(tokenRedis.trim())){
+        if (!StringUtils.isBlank(tokenRedis) && token.trim().equals(tokenRedis.trim())){
             log.info("令牌有效！");
             return true;
         }

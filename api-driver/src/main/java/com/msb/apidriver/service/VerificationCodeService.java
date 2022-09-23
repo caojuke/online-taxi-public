@@ -33,7 +33,7 @@ public class VerificationCodeService {
     /**
      * 在司机表中检查手机号是否存在，如存在，发验证码
      * @param driverPhone
-     * @return
+     * @return 注意，此处返回了验证码（手机收到验证码才有验证功能！），仅用于测试！实际仅返回是否发送成功的状态。
      */
     public ResponseResult<NumberCodeResponse> checkAndSendVerificationCode(String driverPhone){
         //查询手机号是否存在，去service-driver-user中去查
@@ -48,7 +48,7 @@ public class VerificationCodeService {
         log.info("验证码："+verificationCode);
         //调用第三方发送验证码
 
-        //存入redis
+        //存入redis，有效时间3分钟
         String key= RedisPrefixUtil.generateKeyByPhone(driverPhone,IdentityConstant.DRIVER_IDENTITY);
         stringRedisTemplate.opsForValue().set(key,String.valueOf(verificationCode),3, TimeUnit.MINUTES);
 
@@ -67,7 +67,7 @@ public class VerificationCodeService {
             String accessToken= JwtUtil.generateToken(driverPhone,IdentityConstant.DRIVER_IDENTITY,TokenTypeConstant.ACCESS);
             String refreshToken= JwtUtil.generateToken(driverPhone,IdentityConstant.DRIVER_IDENTITY,TokenTypeConstant.REFRESH);
             stringRedisTemplate.opsForValue().set(keyAccess,accessToken,30,TimeUnit.DAYS);
-            stringRedisTemplate.opsForValue().set(keyRefresh,refreshToken,30,TimeUnit.DAYS);
+            stringRedisTemplate.opsForValue().set(keyRefresh,refreshToken,31,TimeUnit.DAYS);
             //发给客户
             return ResponseResult.success(new TokenResponse(accessToken,refreshToken));
         }else {

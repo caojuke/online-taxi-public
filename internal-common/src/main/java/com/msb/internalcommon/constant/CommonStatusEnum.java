@@ -14,7 +14,9 @@ public enum CommonStatusEnum {
     /**
      * Token错误1100-1199
      */
-    TOKEN_ERROR(1199,"token 错误"),
+    TOKEN_ERROR(1100,"token 格式错误"),
+    TOKEN_NOT_EXIST(1101,"token 不存在"),
+    TOKEN_NOT_RIGHT(1102,"token 不正确"),
     /**
      * 用户提示1200-1299
      */
