@@ -1,6 +1,7 @@
 package com.msb.apidriver.remote;
 
 import com.msb.internalcommon.dto.DriverUser;
+import com.msb.internalcommon.dto.DriverWorkStatus;
 import com.msb.internalcommon.dto.ResponseResult;
 import com.msb.internalcommon.request.VerificationCodeDTO;
 import com.msb.internalcommon.response.DriverExistResponse;
@@ -15,4 +16,6 @@ public interface ServiceDriverUserClient {
     public ResponseResult updateDriverUser(@RequestBody DriverUser driverUser);
     @GetMapping("/check-driver/{driverPhone}")
     public ResponseResult<DriverExistResponse> getUser(@PathVariable String driverPhone);
+    @PostMapping("/driver-user-work-status")
+    public ResponseResult changeStatus(@RequestBody DriverWorkStatus driverWorkStatus);
 }

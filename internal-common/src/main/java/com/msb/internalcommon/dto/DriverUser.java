@@ -13,7 +13,7 @@ import java.util.Date;
 @AllArgsConstructor
 @NoArgsConstructor
 public class DriverUser implements Serializable {
-    private Integer id;
+    private Long id;
     private String address;
     private String driverName;
     private String driverPhone;

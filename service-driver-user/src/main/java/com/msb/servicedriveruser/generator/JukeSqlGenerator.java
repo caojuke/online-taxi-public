@@ -13,20 +13,9 @@ public class JukeSqlGenerator {
 
     public static void main(String[] args) {
         ConnectMySqlByJDBC();
-        createEntity("car");
+        createEntity("driver_user_work_status");
     }
-    //连接数据库MySQL的方法
-    public static void ConnectMySqlByJDBC(){
-        try {
-            Driver driver = new com.mysql.cj.jdbc.Driver();
-            DriverManager.registerDriver(driver);
-            conn = DriverManager.getConnection(url, username, password);
-        }
-        catch (Exception exception){
-            System.out.println("connect to database failed! reason: "+exception.getMessage());
-        }
-        System.out.println("Database connection established !");
-    }
+
     public static void createEntity(String tableName){
         //statement=conn.createStatement();//这个是普通statement，不是preparedStatement
         //statement.setString(1,para1);//设置参数
@@ -60,6 +49,18 @@ public class JukeSqlGenerator {
         }
     }
 
+    //连接数据库MySQL的方法
+    public static void ConnectMySqlByJDBC(){
+        try {
+            Driver driver = new com.mysql.cj.jdbc.Driver();
+            DriverManager.registerDriver(driver);
+            conn = DriverManager.getConnection(url, username, password);
+        }
+        catch (Exception exception){
+            System.out.println("connect to database failed! reason: "+exception.getMessage());
+        }
+        System.out.println("Database connection established !");
+    }
 
     private static String underlineToCamel1(String field){
         char[] oldChars = field.toCharArray();

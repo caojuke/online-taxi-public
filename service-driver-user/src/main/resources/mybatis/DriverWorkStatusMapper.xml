@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.msb.servicedriveruser.mapper.DriverWorkStatusMapper">
+    <!--查询所有-->
+    <select id="selectAll" resultType="com.msb.internalcommon.dto.DriverWorkStatus">
+        select * from driver_user_work_status
+    </select>
+    <!--用id查询-->
+    <select id="selectById" resultType="com.msb.internalcommon.dto.DriverWorkStatus">
+        select * from driver_user_work_status where driver_id=#{driverId}
+    </select>
+    <!--用dao的not null成员变量来查-->
+    <select id="selectByAny" resultType="com.msb.internalcommon.dto.DriverWorkStatus" parameterType="com.msb.internalcommon.dto.DriverWorkStatus">
+        select * from driver_user_work_status
+        <where>
+            <if test="workStatus != null">
+                work_status=#{workStatus}
+            </if>
+            <if test="driverId != null">
+                and driver_id=#{driverId}
+            </if>
+        </where>
+    </select>
+    <!--按id更新-->
+    <update id="updateById" parameterType="com.msb.internalcommon.dto.DriverWorkStatus">
+        update driver_user_work_status set
+                                           driver_id=#{driverId},
+                                           work_status=#{workStatus},
+                                           gmt_create=#{gmtCreate},
+                                           gmt_modified=#{gmtModified}
+        where driver_id=#{driverId}
+    </update>
+    <!--按id增加-->
+    <insert id="insert" parameterType="com.msb.internalcommon.dto.DriverWorkStatus">
+        insert into driver_user_work_status values (#{driverId},#{workStatus},#{gmtCreate},#{gmtModified})
+    </insert>
+    <!--按id删除-->
+    <delete id="removeById">
+        delete from driver_user_work_status where driver_id=#{driverId}
+    </delete>
+</mapper>

@@ -1,6 +1,6 @@
 package com.msb.servicedriveruser.service;
 
-import com.msb.internalcommon.constant.BindStatusConstant;
+import com.msb.internalcommon.constant.DriverCarConstant;
 import com.msb.internalcommon.constant.CommonStatusEnum;
 import com.msb.internalcommon.dto.DriverCarBindingRelationship;
 import com.msb.internalcommon.dto.ResponseResult;
@@ -22,7 +22,7 @@ public class DriverCarBindingService {
     public ResponseResult bind(DriverCarBindingRelationship bindingRelationship){
         LocalDateTime now=LocalDateTime.now();
         bindingRelationship.setBindingTime(now);
-        bindingRelationship.setBindState(BindStatusConstant.DRIVER_CAR_BIND);
+        bindingRelationship.setBindState(DriverCarConstant.DRIVER_CAR_BIND);
         int rowAffected=0;
         try {
             rowAffected = driverCarBindingMapper.insert(bindingRelationship);
@@ -36,7 +36,7 @@ public class DriverCarBindingService {
     }
     public ResponseResult unbind(DriverCarBindingRelationship bindingRelationship){
 
-        bindingRelationship.setBindState(BindStatusConstant.DRIVER_CAR_BIND);
+        bindingRelationship.setBindState(DriverCarConstant.DRIVER_CAR_BIND);
         List<DriverCarBindingRelationship> result=new ArrayList<>();
         try {
             result = driverCarBindingMapper.selectByAny(bindingRelationship);
@@ -52,7 +52,7 @@ public class DriverCarBindingService {
         DriverCarBindingRelationship relationship = result.get(0);
         LocalDateTime now=LocalDateTime.now();
         relationship.setUnbindingTime(now);
-        relationship.setBindState(BindStatusConstant.DRIVER_CAR_UNBIND);
+        relationship.setBindState(DriverCarConstant.DRIVER_CAR_UNBIND);
         int rowAffected = 0;
         try {
             rowAffected = driverCarBindingMapper.updateById(relationship);

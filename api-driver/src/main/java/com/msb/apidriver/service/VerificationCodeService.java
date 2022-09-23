@@ -32,7 +32,7 @@ public class VerificationCodeService {
 
     /**
      * 在司机表中检查手机号是否存在，如存在，发验证码
-     * @param driverPhone
+     * @param driverPhone 司机手机号
      * @return 注意，此处返回了验证码（手机收到验证码才有验证功能！），仅用于测试！实际仅返回是否发送成功的状态。
      */
     public ResponseResult<NumberCodeResponse> checkAndSendVerificationCode(String driverPhone){

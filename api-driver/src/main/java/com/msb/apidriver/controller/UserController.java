@@ -3,6 +3,7 @@ package com.msb.apidriver.controller;
 
 import com.msb.apidriver.service.DriverUserService;
 import com.msb.internalcommon.dto.DriverUser;
+import com.msb.internalcommon.dto.DriverWorkStatus;
 import com.msb.internalcommon.dto.ResponseResult;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -23,5 +24,11 @@ public class UserController {
     public ResponseResult updateDriverUser(@RequestBody DriverUser driverUser){
         System.out.println(driverUser);
         return driverUserService.updateDriverUser(driverUser);
+    }
+    @PostMapping("/changeStatus")
+    public ResponseResult changeDriverWorkStatus(@RequestBody DriverWorkStatus driverWorkStatus){
+        Integer workStatus = driverWorkStatus.getWorkStatus();
+        Long driverId = driverWorkStatus.getDriverId();
+        return driverUserService.changeDriverWorkStatus(driverWorkStatus);
     }
 }

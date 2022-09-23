@@ -33,9 +33,10 @@ public enum CommonStatusEnum {
      * 数据库操作提示1500-1599
      */
     INSERT_DB_FAILED(1500,"insert失败"),
-    SELECT_DB_FAILED(1501,"select失败"),
-    UPDATE_DB_FAILED(1502,"update失败"),
-    DELETE_DB_FAILED(1503,"delete失败"),
+    SELECT_DB_FAILED(1520,"select失败"),
+    SELECT_NO_FOUND(1521,"未查询到结果"),
+    UPDATE_DB_FAILED(1540,"update失败"),
+    DELETE_DB_FAILED(1560,"delete失败"),
     /**
      * 地图接口请求提示1600-1699
      */
