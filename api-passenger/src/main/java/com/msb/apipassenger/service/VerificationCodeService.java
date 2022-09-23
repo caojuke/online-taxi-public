@@ -39,7 +39,7 @@ public class VerificationCodeService {
 
         //存入redis,key为前缀加手机号，value为验证码
         System.out.println("存入redis服务器: "+redisServer+"，有效时间2分钟...");
-        String key= RedisPrefixUtil.generateKeyByPhone(passengerPhone);
+        String key= RedisPrefixUtil.generateKeyByPhone(passengerPhone,IdentityConstant.PASSENGER_IDENTITY);
         String value=String.valueOf(numberCodeData);
         stringRedisTemplate.opsForValue().set(key,value,2, TimeUnit.MINUTES);
 
@@ -59,7 +59,7 @@ public class VerificationCodeService {
     public ResponseResult checkCode(String passengerPhone,String verificationCode){
         //根据手机号，去redis读取验证码
         System.out.println("根据手机号，去redis读取验证码");
-        String key=RedisPrefixUtil.generateKeyByPhone(passengerPhone);
+        String key=RedisPrefixUtil.generateKeyByPhone(passengerPhone,IdentityConstant.PASSENGER_IDENTITY);
         String codeInRedis = stringRedisTemplate.opsForValue().get(key);
         if (null==codeInRedis)
             return ResponseResult.fail(1001,"No record for this phonenumber exists in Redis DB.");

@@ -7,3 +7,7 @@ spring:
     nacos:
       discovery:
         server-addr: 127.0.0.1:8848
+  redis:
+    host: 192.168.197.128
+    port: 6379
+    database: 0   #用第0个数据库

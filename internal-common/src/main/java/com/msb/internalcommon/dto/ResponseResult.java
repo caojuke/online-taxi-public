@@ -58,7 +58,7 @@ public class ResponseResult<T> {
      * @param data
      * @return
      */
-    public static ResponseResult fail(int code,String message,String data){
+    public static <T> ResponseResult fail(int code,String message,T data){
         return new ResponseResult().setCode(code).setMessage(message).setData(data);
     }
 }

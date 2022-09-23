@@ -9,8 +9,12 @@ import org.springframework.web.bind.annotation.RestController;
 public class TestController {
     @Value("${server.port}")
     private String port;
-    @GetMapping("/test")
+    @GetMapping("/internalTest")
     public ResponseResult test(){
         return ResponseResult.success("port="+port);
+    }
+    @GetMapping("/token")
+    public ResponseResult testAccessToken(){
+        return ResponseResult.success("令牌有效，可以继续访问！");
     }
 }

@@ -11,5 +11,8 @@ import java.io.Serializable;
 @NoArgsConstructor
 public class DriverExistResponse  implements Serializable {
     private String driverPhone;
+    /**
+     * 存在=1，不存在=0
+     */
     private int isExist;
 }
